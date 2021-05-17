@@ -21,6 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot Wild Jam 33"
+run/main_scene="res://Town.tscn"
 config/icon="res://icon.png"
 
 [display]
