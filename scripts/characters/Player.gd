@@ -41,6 +41,16 @@ var selected_interaction = null
 func _ready():
     Scene.set_player(self)
     animationTree.active = true
+    if SceneChanger.next_scene_position:
+        set_global_position(SceneChanger.next_scene_position)
+    if SceneChanger.next_scene_direction:
+        var input_vector = Vector2.ZERO
+        match SceneChanger.next_scene_direction:
+            "left": input_vector = Vector2.LEFT
+            "right": input_vector = Vector2.RIGHT
+            "up": input_vector = Vector2.UP
+            "down": input_vector = Vector2.DOWN
+        animationTree.set("parameters/Idle/blend_position", input_vector)
 
 func _process(delta):
     match state:

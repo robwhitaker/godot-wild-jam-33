@@ -2,13 +2,13 @@
 
 [ext_resource path="res://scenes/objects/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/images/GrassBackground.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/GrassBackgroundDarkest.png" type="Texture" id=3]
 [ext_resource path="res://scripts/utils/Transporter.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 90 )
 
-[node name="Town" type="Node2D"]
+[node name="Forest3" type="Node2D"]
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( 160, 90 )
@@ -59,14 +59,14 @@ position = Vector2( 256, 168 )
 [node name="Bush12" parent="YSort/Bushes" instance=ExtResource( 1 )]
 position = Vector2( 320, 168 )
 
-[node name="TransporterRight" type="Area2D" parent="."]
+[node name="TransporterLeft" type="Area2D" parent="."]
 position = Vector2( 325, 90 )
 script = ExtResource( 4 )
-next_scene_path = "res://scenes/rooms/Forest1.tscn"
-next_scene_position_x = 20.0
+next_scene_path = "res://scenes/rooms/Forest2.tscn"
+next_scene_position_x = 300.0
 next_scene_position_y = 90.0
-next_scene_direction = "right"
+next_scene_direction = "left"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TransporterRight"]
-position = Vector2( 5, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransporterLeft"]
+position = Vector2( -335, 0 )
 shape = SubResource( 1 )
