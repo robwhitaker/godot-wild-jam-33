@@ -37,7 +37,7 @@ onready var default_light := $DefaultLight as Light2D
 var selected_interaction = null
 
 func _ready():
-
+    Scene.set_player(self)
     animationTree.active = true
 
 func _process(delta):
