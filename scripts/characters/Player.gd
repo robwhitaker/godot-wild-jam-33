@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal moved(global_position)
+
 const ACCELERATION = 500
 const FRICTION = 500
 
@@ -48,6 +50,8 @@ func _process(delta):
             attack_state()
 
 func move_state(delta):
+    var last_pos = get_global_position()
+
     var input_vector = Vector2.ZERO
     input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
     input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -91,6 +95,10 @@ func move_state(delta):
 
     if lantern_light.is_visible():
         detection_radius_shape.set_scale(Vector2(LIGHT_DETECTION_MULT, LIGHT_DETECTION_MULT))
+
+    var new_pos = get_global_position()
+    if last_pos != new_pos:
+        emit_signal("moved", new_pos)
 
 func attack_state():
     animationState.travel("Attack")
