@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scripts/characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Player.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/light-radius.png" type="Texture" id=3]
+[ext_resource path="res://scripts/effects/LightFlicker.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
@@ -353,13 +354,15 @@ start_node = "Idle"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=34]
 
 [sub_resource type="CircleShape2D" id=35]
-radius = 14.3356
+radius = 36.9087
 
 [sub_resource type="CapsuleShape2D" id=36]
 radius = 14.699
 height = 14.4468
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 9
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -399,15 +402,23 @@ visible = false
 position = Vector2( -7.62939e-06, -3.52284 )
 scale = Vector2( 1.37542, 1.37542 )
 texture = ExtResource( 3 )
+color = Color( 1, 0.803922, 0.615686, 1 )
+script = ExtResource( 4 )
+flicker_range = Vector2( 0.95, 1 )
+min_scale_multiplier = 0.97
+min_flicker_delay = 0.05
+chance_to_flicker = 0.3
 
 [node name="DefaultLight" type="Light2D" parent="."]
-position = Vector2( 0.083437, -3.74858 )
-scale = Vector2( 0.571131, 0.571131 )
+position = Vector2( 0.152164, -4.73798 )
+scale = Vector2( 0.989572, 0.989572 )
 texture = ExtResource( 3 )
 color = Color( 0.423529, 0, 0.611765, 1 )
 energy = 0.7
 
 [node name="DetectionRadius" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
 position = Vector2( 0, -7.6014 )
@@ -415,6 +426,7 @@ shape = SubResource( 35 )
 
 [node name="InteractionRadius" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRadius"]
 position = Vector2( 0, -3.53554 )
