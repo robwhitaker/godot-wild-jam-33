@@ -8,7 +8,10 @@ func _ready():
 func interact():
     if Scene.player.has_body:
         _run_conversation([
-            "wow"
+            "That is a prime hero corpse right there.",
+            "What do I need it for? None of your concern.",
+            "Now, take this gold and be gone.",
+            "I'm sure we'll do business again... ahahaha."
         ], "_go_to_title")
     else:
         _run_conversation([
@@ -30,5 +33,6 @@ func _run_conversation(text, cb=null):
         call(cb)
 
 func _go_to_title():
-    # TODO: change this to title transition
-    visible = false
+    var title_screen_path = "res://scenes/rooms/TitleScreen.tscn"
+    SceneChanger.change_scene(Vector2.ZERO, "", title_screen_path)
+    Player.health = 100
