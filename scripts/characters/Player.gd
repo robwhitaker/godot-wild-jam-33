@@ -59,6 +59,9 @@ func _process(delta):
         ATTACK:
             attack_state()
 
+func apply_damage(dmg : float) -> void:
+    pass
+
 func move_state(delta):
     var last_pos = get_global_position()
 
