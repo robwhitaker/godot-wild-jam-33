@@ -53,6 +53,7 @@ var selected_interaction = null
 
 func _ready():
     Scene.set_player(self)
+    has_body = Player.has_body
     animationTree.active = true
     _handle_transportation()
     _set_up_camera()
@@ -75,12 +76,15 @@ func apply_damage(damage : float) -> void:
 
 func pickup_body():
     has_body = true
+    Player.has_body = true
 
 func _drop_body():
-    has_body = false
-    var body = preload("res://scenes/objects/BodyBag.tscn").instance()
-    body.set_global_position(global_position + Vector2(0, 20))
-    get_parent().add_child(body)
+    if has_body:
+        Player.has_body = false
+        has_body = false
+        var body = preload("res://scenes/objects/BodyBag.tscn").instance()
+        body.set_global_position(global_position + Vector2(0, 20))
+        get_parent().add_child(body)
 
 func _die() -> void:
     self.set_physics_process(false)
