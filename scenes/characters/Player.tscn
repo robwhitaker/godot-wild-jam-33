@@ -454,14 +454,14 @@ collision_mask = 9
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -9 )
+position = Vector2( 0, -21 )
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 8
 frame = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.44545, 13.8606 )
+position = Vector2( 0.445, 1 )
 rotation = -1.5708
 shape = SubResource( 1 )
 
@@ -496,18 +496,20 @@ parameters/Idle/blend_position = Vector2( 0, 0.100494 )
 parameters/Run/blend_position = Vector2( -1, 0 )
 
 [node name="LanternLight" type="Light2D" parent="."]
-position = Vector2( 0.353933, -9.0681 )
+visible = false
+position = Vector2( 0.354, -21 )
 scale = Vector2( 1.53212, 1.53212 )
 texture = ExtResource( 3 )
 
 [node name="DefaultLight" type="Light2D" parent="."]
-position = Vector2( 0.139136, -4.91787 )
+position = Vector2( 0.139, -21 )
 scale = Vector2( 0.728604, 0.728604 )
 texture = ExtResource( 3 )
 color = Color( 0.423529, 0, 0.611765, 1 )
 energy = 0.7
 
 [node name="DetectionRadius" type="Area2D" parent="."]
+position = Vector2( 0, -12 )
 collision_layer = 2
 collision_mask = 0
 
@@ -516,6 +518,7 @@ position = Vector2( 0.111366, -9.04911 )
 shape = SubResource( 43 )
 
 [node name="InteractionRadius" type="Area2D" parent="."]
+position = Vector2( 0, -12 )
 collision_layer = 0
 collision_mask = 4
 

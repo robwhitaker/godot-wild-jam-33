@@ -38,6 +38,7 @@ var state = MOVE
 var move_state = WALK
 var noise_level = NOISE_LEVEL.NONE
 var velocity = Vector2.ZERO
+var has_body := false
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -72,6 +73,15 @@ func apply_damage(damage : float) -> void:
     else:
         Player.health = remaining_health
 
+func pickup_body():
+    has_body = true
+
+func _drop_body():
+    has_body = false
+    var body = preload("res://scenes/objects/BodyBag.tscn").instance()
+    body.set_global_position(global_position + Vector2(0, 20))
+    get_parent().add_child(body)
+
 func _die() -> void:
     self.set_physics_process(false)
     _display_you_died_text()
@@ -88,12 +98,12 @@ func move_state(delta):
     input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
     input_vector = input_vector.normalized()
 
-    if Input.is_action_pressed("sprint"):
-        move_state = SPRINT
-        detection_radius_shape.set_scale(detection_radius_scale * SPRINT_DETECTION_MULT)
-    elif Input.is_action_pressed("drag"):
+    if Input.is_action_pressed("drag") || has_body:
         move_state = DRAG
         detection_radius_shape.set_scale(detection_radius_scale * DRAG_DETECTION_MULT)
+    elif Input.is_action_pressed("sprint"):
+        move_state = SPRINT
+        detection_radius_shape.set_scale(detection_radius_scale * SPRINT_DETECTION_MULT)
     else:
         move_state = WALK
         detection_radius_shape.set_scale(detection_radius_scale * WALK_DETECTION_MULT)
@@ -188,6 +198,8 @@ func _unhandled_input(event):
         else:
             lantern_light.show()
             default_light.hide()
+    elif event.is_action_pressed("drop_body"):
+        _drop_body()
 
 func _handle_transportation() -> void:
     if SceneChanger.next_scene_position:
