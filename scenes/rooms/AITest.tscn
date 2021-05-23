@@ -53,6 +53,13 @@ outlines = [ PoolVector2Array( 0.181, 0.554165, 321.193, 0.554165, 319.695, 191.
 
 [node name="AITest" type="Node2D"]
 
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 320.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Navigation2D" type="Navigation2D" parent="."]
 script = ExtResource( 5 )
 
