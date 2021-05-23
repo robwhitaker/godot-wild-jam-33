@@ -41,23 +41,8 @@ var selected_interaction = null
 func _ready():
     Scene.set_player(self)
     animationTree.active = true
-    if SceneChanger.next_scene_position:
-        set_global_position(SceneChanger.next_scene_position)
-    if SceneChanger.next_scene_direction:
-        var input_vector = Vector2.ZERO
-        match SceneChanger.next_scene_direction:
-            "left": input_vector = Vector2.LEFT
-            "right": input_vector = Vector2.RIGHT
-            "up": input_vector = Vector2.UP
-            "down": input_vector = Vector2.DOWN
-        animationTree.set("parameters/Idle/blend_position", input_vector)
-
-    var scene_dimensions = get_tree().current_scene.get_node("Background").get_rect().size
-    var camera = get_node("Camera2D")
-    camera.limit_left = 0
-    camera.limit_top = 0
-    camera.limit_right = scene_dimensions.x
-    camera.limit_bottom = scene_dimensions.y
+    _handle_transportation()
+    _set_up_camera()
 
 func _process(delta):
     match state:
@@ -150,3 +135,23 @@ func _unhandled_input(event):
         else:
             lantern_light.show()
             default_light.hide()
+
+func _handle_transportation() -> void:
+    if SceneChanger.next_scene_position:
+        set_global_position(SceneChanger.next_scene_position)
+    if SceneChanger.next_scene_direction:
+        var input_vector = Vector2.ZERO
+        match SceneChanger.next_scene_direction:
+            "left": input_vector = Vector2.LEFT
+            "right": input_vector = Vector2.RIGHT
+            "up": input_vector = Vector2.UP
+            "down": input_vector = Vector2.DOWN
+        animationTree.set("parameters/Idle/blend_position", input_vector)
+
+func _set_up_camera() -> void:
+    var scene_dimensions = get_tree().current_scene.get_node("Background").get_rect().size
+    var camera = get_node("Camera2D")
+    camera.limit_left = 0
+    camera.limit_top = 0
+    camera.limit_right = scene_dimensions.x
+    camera.limit_bottom = scene_dimensions.y
