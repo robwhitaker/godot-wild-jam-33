@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/mushroom_spore_cloud_2.mp3-833abb910afe37ba8e658aea72d71c14.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/mushroom_spore_cloud_2.mp3"
+dest_files=[ "res://.import/mushroom_spore_cloud_2.mp3-833abb910afe37ba8e658aea72d71c14.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
