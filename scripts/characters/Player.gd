@@ -44,7 +44,7 @@ func _ready():
     _handle_transportation()
     _set_up_camera()
 
-func _process(delta):
+func _physics_process(delta):
     match state:
         MOVE:
             move_state(delta)
@@ -61,7 +61,7 @@ func apply_damage(damage : float) -> void:
         Player.health = remaining_health
 
 func _die() -> void:
-    self.set_process(false)
+    self.set_physics_process(false)
     _display_you_died_text()
     # go to title screen after 5 seconds
 
