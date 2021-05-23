@@ -51,8 +51,19 @@ func _process(delta):
         ATTACK:
             attack_state()
 
-func apply_damage(dmg : float) -> void:
-    pass
+func apply_damage(damage : float) -> void:
+    var health = Player.health
+    var remaining_health = health - damage
+    if remaining_health <= 0:
+        Player.health = 0
+        _die()
+    else:
+        Player.health = remaining_health
+
+func _die() -> void:
+    self.set_process(false)
+    _display_you_died_text()
+    # go to title screen after 5 seconds
 
 func move_state(delta):
     var last_pos = get_global_position()
@@ -155,3 +166,13 @@ func _set_up_camera() -> void:
     camera.limit_top = 0
     camera.limit_right = scene_dimensions.x
     camera.limit_bottom = scene_dimensions.y
+
+func _display_you_died_text() -> void:
+    var you_died_text = RichTextLabel.new()
+    you_died_text.bbcode_enabled = true
+    you_died_text.set_name("YouDiedText")
+    you_died_text.set_bbcode("[center]You died... F[/center]")
+    you_died_text.set_size(Vector2(100, 30))
+    you_died_text.set_global_position(self.global_position)
+
+    get_tree().current_scene.add_child(you_died_text)
