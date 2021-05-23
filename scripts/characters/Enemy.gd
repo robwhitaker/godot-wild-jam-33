@@ -176,11 +176,11 @@ func _attack():
     animation_state.travel("Attack")
 
 func _spawn_spores():
-    # TODO
-    pass
+    var spores = preload("res://scenes/objects/SporeCloud.tscn").instance()
+    spores.set_global_position(global_position)
+    get_parent().add_child(spores)
 
 func _attack_finished():
-    _spawn_spores()
     attack_cooldown_timer.start()
     state = CHASING
     set_physics_process(true)

@@ -4,17 +4,17 @@
 [ext_resource path="res://scripts/characters/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/light-radius.png" type="Texture" id=3]
 
-[sub_resource type="CapsuleShape2D" id=72]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 7.18933
-height = 11.3352
+height = 16.9921
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 44.1162
 
-[sub_resource type="CircleShape2D" id=73]
+[sub_resource type="CircleShape2D" id=3]
 radius = 34.3179
 
-[sub_resource type="CircleShape2D" id=74]
+[sub_resource type="CircleShape2D" id=4]
 radius = 51.5153
 
 [sub_resource type="Animation" id=5]
@@ -52,9 +52,12 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.75 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "_spawn_spores"
+}, {
 "args": [  ],
 "method": "_attack_finished"
 } ]
@@ -131,9 +134,12 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.75 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.2, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "_spawn_spores"
+}, {
 "args": [  ],
 "method": "_attack_finished"
 } ]
@@ -1325,14 +1331,15 @@ search_movement_speed = 35.0
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -11 )
 texture = ExtResource( 1 )
+flip_h = true
 hframes = 5
 vframes = 3
-frame = 12
+frame = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3.89099, 11.2532 )
+position = Vector2( -7.02876, 9.6843 )
 rotation = 1.5708
-shape = SubResource( 72 )
+shape = SubResource( 1 )
 
 [node name="PathRefreshTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -1364,7 +1371,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius"]
 position = Vector2( 0, -11 )
-shape = SubResource( 73 )
+shape = SubResource( 3 )
 
 [node name="WakeUpRadius" type="Area2D" parent="."]
 collision_layer = 0
@@ -1372,7 +1379,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUpRadius"]
 position = Vector2( 0, -11 )
-shape = SubResource( 74 )
+shape = SubResource( 4 )
 
 [node name="Debug" type="Node2D" parent="."]
 

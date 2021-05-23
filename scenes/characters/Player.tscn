@@ -479,6 +479,9 @@ radius = 31.7889
 radius = 14.699
 height = 48.9292
 
+[sub_resource type="CapsuleShape2D" id=45]
+height = 37.5886
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 9
@@ -562,6 +565,15 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRadius"]
 position = Vector2( 0, -2.19919 )
 shape = SubResource( 53 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2( 0, -12 )
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( -0.297295, -8.1758 )
+shape = SubResource( 45 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -5 )
