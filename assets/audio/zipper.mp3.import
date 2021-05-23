@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/zipper.mp3-7884208c122651fa7d9c34e745e5ea7e.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/zipper.mp3"
+dest_files=[ "res://.import/zipper.mp3-7884208c122651fa7d9c34e745e5ea7e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

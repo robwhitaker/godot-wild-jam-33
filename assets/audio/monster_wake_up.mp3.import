@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/monster_wake_up.mp3-cd5a0fbc2ac8b9730bfc72c8e19bd4d3.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/monster_wake_up.mp3"
+dest_files=[ "res://.import/monster_wake_up.mp3-cd5a0fbc2ac8b9730bfc72c8e19bd4d3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
