@@ -14,6 +14,9 @@ onready var attack_cooldown_timer := $AttackCooldown as Timer
 onready var attack_radius := $AttackRadius as Area2D
 onready var aggro_radius := $AggroRadius as Area2D
 onready var wake_up_radius := $WakeUpRadius as Area2D
+onready var animation_tree := $AnimationTree as AnimationTree
+onready var animation_state = animation_tree.get("parameters/playback")
+onready var aggro_light := $AggroLight as Light2D
 
 onready var _debug_path_line := $Debug/PathLine as Line2D
 
@@ -48,6 +51,10 @@ func _ready() -> void:
     # Don't run physics if we're not chasing
     set_physics_process(state == CHASING)
 
+    # Set some defaults (which sometimes change in the editor)
+    animation_tree.active = true
+    aggro_light.set_energy(0)
+
     # Set up settings from exported vars
     search_start_delay_timer.set_wait_time(search_start_delay)
     search_timer.set_wait_time(search_duration)
@@ -80,6 +87,7 @@ func _ready() -> void:
 
 func _physics_process(delta : float) -> void:
     if path.size() == 0:
+        animation_state.travel("Searching")
         return
 
     var movement_speed = chase_movement_speed
@@ -112,6 +120,21 @@ func _physics_process(delta : float) -> void:
 
     # Apply our new direction to the velocity
     velocity += new_dir * movement_speed
+
+    # Make the enemy face the right way for its velocity
+    if velocity != Vector2.ZERO:
+        var blend_positions = [
+            "parameters/Attack/blend_position",
+            "parameters/Idle/blend_position",
+            "parameters/IdleSleep/blend_position",
+            "parameters/Jitter/blend_position",
+            "parameters/Run/blend_position",
+            "parameters/Sleep/blend_position",
+            "parameters/Wake/blend_position",
+        ]
+        for blend_position in blend_positions:
+            animation_tree.set(blend_position, velocity.normalized())
+        animation_state.travel("Run")
 
     # If we've gotten close to our target point, remove it from the path
     # TODO: this is a magic number and hard to visualize. Maybe check within
@@ -150,14 +173,15 @@ func _attack():
     set_physics_process(false)
     attack_on_cooldown = true
     state = ATTACKING
-    # TODO: actual attack animation + spawn spores
-    set_modulate(Color.red)
-    yield(get_tree().create_timer(3), "timeout")
-    _attack_finished()
+    animation_state.travel("Attack")
+
+func _spawn_spores():
+    # TODO
+    pass
 
 func _attack_finished():
+    _spawn_spores()
     attack_cooldown_timer.start()
-    set_modulate(Color.white)
     state = CHASING
     set_physics_process(true)
 
@@ -191,7 +215,7 @@ func _start_searching():
 func _give_up_on_search():
     state = SLEEPING
     set_physics_process(false)
-    # TODO: play sleep animation
+    animation_state.travel("IdleSleep")
 
 func _attack_off_cooldown():
     attack_on_cooldown = false
@@ -200,11 +224,7 @@ func _wake_up(_body):
     if state != SLEEPING:
         return
 
-    # TODO: play an animation and move the chase-start code to the end of the animation
-    set_modulate(Color.yellow)
-    yield(get_tree().create_timer(2), "timeout")
-    set_modulate(Color.white)
-    _start_chase()
+    animation_state.travel("Wake")
 
 func _on_player_noise_level_changed(noise_level) -> void:
     var path_update_freq = path_refresh_timer.get_wait_time()

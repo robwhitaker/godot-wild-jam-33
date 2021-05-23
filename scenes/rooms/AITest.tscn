@@ -81,6 +81,7 @@ tile_data = PoolIntArray( 65545, 2, 0, 131076, 2, 0, 131085, 2, 0, 262150, 2, 0,
 position = Vector2( 262.513, 23.2017 )
 
 [node name="Enemy" parent="Navigation2D/TileMap2" instance=ExtResource( 3 )]
+position = Vector2( 30.1578, 129.575 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
 visible = false
