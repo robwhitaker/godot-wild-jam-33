@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scripts/characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/player_all.png" type="Texture" id=2]
@@ -479,8 +479,8 @@ radius = 31.7889
 radius = 14.699
 height = 48.9292
 
-[sub_resource type="CapsuleShape2D" id=45]
-height = 37.5886
+[sub_resource type="CapsuleShape2D" id=54]
+height = 39.967
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -573,7 +573,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( -0.297295, -8.1758 )
-shape = SubResource( 45 )
+shape = SubResource( 54 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -5 )
