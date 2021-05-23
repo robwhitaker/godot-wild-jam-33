@@ -11,25 +11,25 @@
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 64, 20, 60, 20, 60 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 48, 64, 16, 64, 8, 48, 56, 48 )
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 24, 24, 8, 24, 8, 16, 24, 16 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 32, 72, 0, 72, 8, 56, 16, 48 )
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 32, 72, 0, 72, 0, 56, 32, 56 )
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=14]
 points = PoolVector2Array( 40, 84, 24, 84, 20, 88, 44, 88 )
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=15]
 points = PoolVector2Array( 28, 84, 28, 84, 28, 80, 36, 80, 36, 84 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=16]
 points = PoolVector2Array( 24, 84, 28, 84, 28, 80, 36, 80, 36, 84, 40, 84, 44, 88, 20, 88, 20, 88, 24, 84 )
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
@@ -38,23 +38,23 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 [resource]
 4/name = "bush_64.png 4"
 4/texture = ExtResource( 4 )
-4/tex_offset = Vector2( 0, -12 )
+4/tex_offset = Vector2( 0, -10 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 64, 64 )
 4/tile_mode = 0
 4/occluder_offset = Vector2( 0, 0 )
 4/navigation_offset = Vector2( 0, 0 )
-4/shape_offset = Vector2( 0, -12 )
-4/shape_transform = Transform2D( 1, 0, 0, 1, 0, -12 )
-4/shape = SubResource( 3 )
+4/shape_offset = Vector2( 0, -10 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, -10 )
+4/shape = SubResource( 11 )
 4/shape_one_way = false
 4/shape_one_way_margin = 1.0
 4/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -12 )
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -10 )
 } ]
 4/z_index = 0
 5/name = "foliage.png 5"
@@ -67,36 +67,36 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 5/navigation_offset = Vector2( 0, 0 )
 5/shape_offset = Vector2( 0, 0 )
 5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-5/shape = SubResource( 4 )
+5/shape = SubResource( 12 )
 5/shape_one_way = false
 5/shape_one_way_margin = 1.0
 5/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 12 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 5/z_index = 0
 6/name = "foliage.png 6"
 6/texture = ExtResource( 2 )
-6/tex_offset = Vector2( 0, -12 )
+6/tex_offset = Vector2( 0, -40 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 32, 56, 32, 72 )
 6/tile_mode = 0
 6/occluder_offset = Vector2( 0, 0 )
 6/navigation_offset = Vector2( 0, 0 )
-6/shape_offset = Vector2( 0, -12 )
-6/shape_transform = Transform2D( 1, 0, 0, 1, 0, -12 )
-6/shape = SubResource( 5 )
+6/shape_offset = Vector2( 0, -40 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, -40 )
+6/shape = SubResource( 13 )
 6/shape_one_way = false
 6/shape_one_way_margin = 1.0
 6/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 5 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -12 )
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, -40 )
 } ]
 6/z_index = 0
 7/name = "tree_64_long.png 7"
@@ -109,42 +109,42 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 7/navigation_offset = Vector2( 0, 0 )
 7/shape_offset = Vector2( 0, -45 )
 7/shape_transform = Transform2D( 1, 0, 0, 1, 0, -45 )
-7/shape = SubResource( 6 )
+7/shape = SubResource( 14 )
 7/shape_one_way = false
 7/shape_one_way_margin = 1.0
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 6 ),
+"shape": SubResource( 14 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, -45 )
 }, {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 7 ),
+"shape": SubResource( 15 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, -45 )
 } ]
 7/z_index = 0
 8/name = "tree_64_long_red.png 8"
 8/texture = ExtResource( 6 )
-8/tex_offset = Vector2( 0, -45 )
+8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 0, 64, 92 )
 8/tile_mode = 0
 8/occluder_offset = Vector2( 0, 0 )
 8/navigation_offset = Vector2( 0, 0 )
-8/shape_offset = Vector2( 0, -45 )
-8/shape_transform = Transform2D( 1, 0, 0, 1, 0, -45 )
-8/shape = SubResource( 8 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape = SubResource( 16 )
 8/shape_one_way = false
 8/shape_one_way_margin = 1.0
 8/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 8 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -45 )
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
 9/name = "tree_64_short.png 9"
@@ -170,14 +170,14 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 9/z_index = 0
 10/name = "tree_64_short_red.png 10"
 10/texture = ExtResource( 1 )
-10/tex_offset = Vector2( 0, -20 )
+10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 0, 0, 64, 64 )
 10/tile_mode = 0
 10/occluder_offset = Vector2( 0, 0 )
 10/navigation_offset = Vector2( 0, 0 )
-10/shape_offset = Vector2( 0, -20 )
-10/shape_transform = Transform2D( 1, 0, 0, 1, 0, -20 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 10/shape = SubResource( 1 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
@@ -186,7 +186,7 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 "one_way": false,
 "one_way_margin": 1.0,
 "shape": SubResource( 1 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, -20 )
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
 11/name = "grass64.png 11"
@@ -199,14 +199,14 @@ points = PoolVector2Array( 24, 60, 28, 56, 36, 56, 40, 60, 44, 60, 44, 64, 20, 6
 11/navigation_offset = Vector2( 0, 0 )
 11/shape_offset = Vector2( 0, 0 )
 11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-11/shape = SubResource( 2 )
+11/shape = SubResource( 10 )
 11/shape_one_way = false
 11/shape_one_way_margin = 1.0
 11/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 10 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 11/z_index = 0
