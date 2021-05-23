@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/resources/foliageTileSet.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/images/grass64.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/deadman.png" type="Texture" id=3]
+[ext_resource path="res://assets/resources/groundOnly.tres" type="TileSet" id=4]
+[ext_resource path="res://scripts/utils/Transporter.gd" type="Script" id=5]
+[ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/flowerlight.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10.7689, 357.888 )
+
+[node name="Level1" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_left = -28.5
+margin_top = 25.0
+margin_right = 678.5
+margin_bottom = 495.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="justforcollision" type="TileMap" parent="Background"]
+tile_set = ExtResource( 1 )
+format = 1
+tile_data = PoolIntArray( -65535, 11, 0, -65534, 11, 0, -65533, 11, 0, -65532, 11, 0, -65531, 11, 0, -65530, 11, 0, -65529, 11, 0, -65528, 11, 0, -65527, 11, 0, 0, 11, 0, 1, 11, 0, 9, 11, 0, 65536, 11, 0, 65545, 11, 0, 65546, 11, 0, 131072, 11, 0, 131082, 11, 0, 196608, 11, 0, 196618, 11, 0, 262144, 11, 0, 262154, 11, 0, 327680, 11, 0, 327690, 11, 0, 393216, 11, 0, 393226, 11, 0, 458752, 11, 0, 458753, 11, 0, 458754, 11, 0, 458755, 11, 0, 458756, 11, 0, 458757, 11, 0, 458758, 11, 0, 458759, 11, 0, 458760, 11, 0, 458761, 11, 0, 458762, 11, 0 )
+
+[node name="TileMap" type="TileMap" parent="Background"]
+tile_set = ExtResource( 4 )
+format = 1
+tile_data = PoolIntArray( 65540, 2, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 131075, 2, 0, 131076, 2, 0, 131077, 1, 0, 131078, 0, 0, 131079, 1, 0, 131080, 1, 0, 196610, 2, 0, 196611, 2, 0, 196612, 0, 0, 196613, 2, 0, 196614, 2, 0, 196615, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 1, 0, 327685, 0, 0, 327686, 0, 0, 327687, 2, 0, 393218, 0, 0, 393219, 0, 0, 393220, 2, 0, 393221, 0, 0, 393222, 1, 0, 393223, 1, 0, 393224, 1, 0, 393225, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0 )
+
+[node name="YSort" type="YSort" parent="Background"]
+
+[node name="deadman" type="Sprite" parent="Background/YSort"]
+position = Vector2( 336.096, 156.863 )
+texture = ExtResource( 3 )
+
+[node name="TileMap2" type="TileMap" parent="Background/YSort"]
+tile_set = ExtResource( 1 )
+cell_half_offset = 1
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 5, 6, 0, 65538, 6, 0, 65539, 4, 0, 65540, 9, 0, 65541, 9, 0, 65542, 4, 0, 65543, 4, 0, 131073, 6, 0, 131074, 7, 0, 131075, 4, 0, 131079, 7, 0, 131080, 6, 0, 196610, 4, 0, 196614, 9, 0, 196615, 4, 0 )
+
+[node name="Player" parent="Background/YSort" instance=ExtResource( 6 )]
+position = Vector2( 354.322, 409.652 )
+
+[node name="flowerlight" parent="Background/YSort" instance=ExtResource( 7 )]
+position = Vector2( 226.725, 265.925 )
+
+[node name="flowerlight2" parent="Background/YSort" instance=ExtResource( 7 )]
+position = Vector2( 449.212, 420.607 )
+
+[node name="flowerlight3" parent="Background/YSort" instance=ExtResource( 7 )]
+position = Vector2( 312.076, 154.927 )
+
+[node name="TransporterUp" type="Area2D" parent="."]
+position = Vector2( 118.529, 436.036 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+next_scene_path = "res://scenes/rooms/Level1.tscn"
+next_scene_position_x = 784.0
+next_scene_position_y = -177.0
+next_scene_direction = "left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransporterUp"]
+position = Vector2( 200.852, 41.1637 )
+rotation = 1.5708
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.0352941, 0.0352941, 0.0352941, 1 )

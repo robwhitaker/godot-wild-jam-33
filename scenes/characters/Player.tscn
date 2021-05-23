@@ -1,8 +1,9 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scripts/characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/player_all.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/light-radius.png" type="Texture" id=3]
+[ext_resource path="res://scripts/effects/LightFlicker.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.20772
@@ -345,55 +346,52 @@ tracks/0/keys = {
 }
 
 [sub_resource type="AnimationNodeAnimation" id=22]
-animation = "AttackLeft"
+animation = "IdleLeft"
 
 [sub_resource type="AnimationNodeAnimation" id=23]
-animation = "AttackRight"
+animation = "IdleDown"
 
 [sub_resource type="AnimationNodeAnimation" id=24]
-animation = "AttackDown"
+animation = "IdleRight"
 
 [sub_resource type="AnimationNodeAnimation" id=25]
-animation = "AttackUp"
+animation = "IdleUp"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id=26]
 blend_point_0/node = SubResource( 22 )
 blend_point_0/pos = Vector2( -1, 0 )
 blend_point_1/node = SubResource( 23 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 24 )
-blend_point_2/pos = Vector2( 0, 1.1 )
-blend_point_3/node = SubResource( 25 )
-blend_point_3/pos = Vector2( 0, -1.1 )
-min_space = Vector2( -1, -1.1 )
-max_space = Vector2( 1, 1.1 )
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id=27]
-animation = "IdleLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=28]
-animation = "IdleDown"
-
-[sub_resource type="AnimationNodeAnimation" id=29]
-animation = "IdleRight"
-
-[sub_resource type="AnimationNodeAnimation" id=30]
-animation = "IdleUp"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=31]
-blend_point_0/node = SubResource( 27 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 28 )
 blend_point_1/pos = Vector2( 0, 1.1 )
-blend_point_2/node = SubResource( 29 )
+blend_point_2/node = SubResource( 24 )
 blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 30 )
+blend_point_3/node = SubResource( 25 )
 blend_point_3/pos = Vector2( 0, -1.1 )
 min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 snap = Vector2( 0.01, 0.01 )
 blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "IdleDown_carry"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "IdleUp_carry"
+
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "IdleRight_carry"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "IdleLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=31]
+blend_point_0/node = SubResource( 27 )
+blend_point_0/pos = Vector2( 0, 1.1 )
+blend_point_1/node = SubResource( 28 )
+blend_point_1/pos = Vector2( 0, -1.1 )
+blend_point_2/node = SubResource( 29 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 30 )
+blend_point_3/pos = Vector2( -1, 0 )
 
 [sub_resource type="AnimationNodeAnimation" id=32]
 animation = "RunLeft"
@@ -420,31 +418,64 @@ min_space = Vector2( -1, -1.1 )
 max_space = Vector2( 1, 1.1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+[sub_resource type="AnimationNodeAnimation" id=37]
+animation = "RunDown_carry"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+[sub_resource type="AnimationNodeAnimation" id=38]
+animation = "RunUp_carry"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "RunLeft_carry"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+[sub_resource type="AnimationNodeAnimation" id=40]
+animation = "RunRight_carry"
 
-[sub_resource type="AnimationNodeStateMachine" id=41]
-states/Attack/node = SubResource( 26 )
-states/Attack/position = Vector2( 484.75, 219.5 )
-states/Idle/node = SubResource( 31 )
-states/Idle/position = Vector2( 485.125, 110.907 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=41]
+blend_point_0/node = SubResource( 37 )
+blend_point_0/pos = Vector2( 0, 1.1 )
+blend_point_1/node = SubResource( 38 )
+blend_point_1/pos = Vector2( 0, -1.1 )
+blend_point_2/node = SubResource( 39 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 40 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=49]
+
+[sub_resource type="AnimationNodeStateMachine" id=50]
+states/Idle/node = SubResource( 26 )
+states/Idle/position = Vector2( 466.125, 93.8496 )
+states/IdleCarry/node = SubResource( 31 )
+states/IdleCarry/position = Vector2( 466.125, 181.85 )
 states/Run/node = SubResource( 36 )
-states/Run/position = Vector2( 674, 111.375 )
-transitions = [ "Idle", "Run", SubResource( 37 ), "Run", "Idle", SubResource( 38 ), "Idle", "Attack", SubResource( 39 ), "Attack", "Idle", SubResource( 40 ) ]
+states/Run/position = Vector2( 662, 93.8496 )
+states/RunCarry/node = SubResource( 41 )
+states/RunCarry/position = Vector2( 662, 181.85 )
+transitions = [ "Idle", "Run", SubResource( 42 ), "Run", "Idle", SubResource( 43 ), "Idle", "IdleCarry", SubResource( 44 ), "IdleCarry", "Idle", SubResource( 45 ), "Run", "RunCarry", SubResource( 46 ), "RunCarry", "Run", SubResource( 47 ), "RunCarry", "IdleCarry", SubResource( 48 ), "IdleCarry", "RunCarry", SubResource( 49 ) ]
 start_node = "Idle"
-graph_offset = Vector2( 0, 59.4115 )
+graph_offset = Vector2( 0, 25.4324 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=42]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=51]
 
-[sub_resource type="CircleShape2D" id=43]
+[sub_resource type="CircleShape2D" id=52]
 radius = 31.7889
 
-[sub_resource type="CapsuleShape2D" id=44]
+[sub_resource type="CapsuleShape2D" id=53]
 radius = 14.699
 height = 48.9292
 
@@ -488,18 +519,24 @@ anims/RunUp = SubResource( 20 )
 anims/RunUp_carry = SubResource( 21 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 41 )
+tree_root = SubResource( 50 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 42 )
-parameters/Attack/blend_position = Vector2( -0.260887, -0.0930347 )
-parameters/Idle/blend_position = Vector2( 0, 0.100494 )
+parameters/playback = SubResource( 51 )
+parameters/Idle/blend_position = Vector2( -0.000819027, -0.00635839 )
+parameters/IdleCarry/blend_position = Vector2( 0, 0 )
 parameters/Run/blend_position = Vector2( -1, 0 )
+parameters/RunCarry/blend_position = Vector2( 0, 0 )
 
 [node name="LanternLight" type="Light2D" parent="."]
 visible = false
 position = Vector2( 0.354, -21 )
 scale = Vector2( 1.53212, 1.53212 )
 texture = ExtResource( 3 )
+script = ExtResource( 4 )
+flicker_range = Vector2( 0.95, 1 )
+min_scale_multiplier = 0.97
+min_flicker_delay = 0.05
+chance_to_flicker = 0.3
 
 [node name="DefaultLight" type="Light2D" parent="."]
 position = Vector2( 0.139, -21 )
@@ -515,7 +552,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
 position = Vector2( 0.111366, -9.04911 )
-shape = SubResource( 43 )
+shape = SubResource( 52 )
 
 [node name="InteractionRadius" type="Area2D" parent="."]
 position = Vector2( 0, -12 )
@@ -524,7 +561,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRadius"]
 position = Vector2( 0, -2.19919 )
-shape = SubResource( 44 )
+shape = SubResource( 53 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -5 )

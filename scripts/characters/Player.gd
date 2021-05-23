@@ -11,8 +11,8 @@ const WALK_MAX_SPEED = 45
 const SPRINT_MAX_SPEED = 90
 
 const DRAG_DETECTION_MULT = 0.5
-const WALK_DETECTION_MULT = 1
-const SPRINT_DETECTION_MULT = 2.2
+const WALK_DETECTION_MULT = 1.5
+const SPRINT_DETECTION_MULT = 2.5
 const LIGHT_DETECTION_MULT = 1.2
 
 enum {
@@ -215,11 +215,12 @@ func _handle_transportation() -> void:
 
 func _set_up_camera() -> void:
     var scene_dimensions = get_tree().current_scene.get_node("Background").get_rect().size
+    var scene_position = get_tree().current_scene.get_node("Background").get_rect().position
     var camera = get_node("Camera2D")
-    camera.limit_left = 0
-    camera.limit_top = 0
-    camera.limit_right = scene_dimensions.x
-    camera.limit_bottom = scene_dimensions.y
+    camera.limit_left = scene_position.x
+    camera.limit_top = scene_position.y
+    camera.limit_right = scene_position.x + scene_dimensions.x
+    camera.limit_bottom = scene_position.y + scene_dimensions.y
 
 func _display_you_died_text() -> void:
     var you_died_text = RichTextLabel.new()
