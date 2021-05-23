@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://scripts/characters/Enemy.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8.25624, 7.39618 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 20.6933
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8.26222, 7.24437 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="Enemy" type="KinematicBody2D"]
+position = Vector2( 41.158, 117.683 )
+collision_layer = 8
+collision_mask = 11
+script = ExtResource( 2 )
+chase_movement_speed = 50.0
+search_movement_speed = 35.0
+
+[node name="icon" type="Sprite" parent="."]
+position = Vector2( -0.104935, 0.544861 )
+scale = Vector2( 0.2521, 0.228874 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.205048, 0.627674 )
+shape = SubResource( 1 )
+
+[node name="PathRefreshTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="SearchStartDelay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SearchTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AttackRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRadius"]
+position = Vector2( -0.0787506, 0.70871 )
+shape = SubResource( 2 )
+
+[node name="AggroRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius"]
+position = Vector2( -0.0496063, 0.446472 )
+shape = SubResource( 3 )
+
+[node name="WakeUpRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WakeUpRadius"]
+shape = SubResource( 4 )
+
+[node name="Debug" type="Node2D" parent="."]
+
+[node name="PathLine" type="Line2D" parent="Debug"]
+position = Vector2( -28.2604, -174.036 )
+width = 2.0

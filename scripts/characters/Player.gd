@@ -1,17 +1,19 @@
 extends KinematicBody2D
 
 signal moved(global_position)
+signal noise_level_changed(noise_level)
 
 const ACCELERATION = 500
 const FRICTION = 500
 
-const DRAG_MAX_SPEED = 30
-const WALK_MAX_SPEED = 65
-const SPRINT_MAX_SPEED = 120
+const DRAG_MAX_SPEED = 20
+const WALK_MAX_SPEED = 45
+const SPRINT_MAX_SPEED = 90
 
-const WALK_DETECTION_MULT = 3
-const SPRINT_DETECTION_MULT = 8
-const LIGHT_DETECTION_MULT = 12
+const DRAG_DETECTION_MULT = 0.5
+const WALK_DETECTION_MULT = 1
+const SPRINT_DETECTION_MULT = 2.2
+const LIGHT_DETECTION_MULT = 1.2
 
 enum {
     DRAG,
@@ -24,14 +26,24 @@ enum {
     ATTACK
 }
 
+enum NOISE_LEVEL {
+    NONE,
+    LOW,
+    MEDIUM,
+    HIGH,
+    EXTREME
+}
+
 var state = MOVE
 var move_state = WALK
+var noise_level = NOISE_LEVEL.NONE
 var velocity = Vector2.ZERO
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var detection_radius_shape := $DetectionRadius/CollisionShape2D as CollisionShape2D
+onready var detection_radius_scale := detection_radius_shape.get_scale()
 onready var lantern_light := $LanternLight as Light2D
 onready var default_light := $DefaultLight as Light2D
 
@@ -64,13 +76,13 @@ func move_state(delta):
 
     if Input.is_action_pressed("sprint"):
         move_state = SPRINT
-        detection_radius_shape.set_scale(Vector2(SPRINT_DETECTION_MULT, SPRINT_DETECTION_MULT))
+        detection_radius_shape.set_scale(detection_radius_scale * SPRINT_DETECTION_MULT)
     elif Input.is_action_pressed("drag"):
         move_state = DRAG
-        detection_radius_shape.set_scale(Vector2(WALK_DETECTION_MULT, WALK_DETECTION_MULT))
+        detection_radius_shape.set_scale(detection_radius_scale * DRAG_DETECTION_MULT)
     else:
         move_state = WALK
-        detection_radius_shape.set_scale(Vector2(WALK_DETECTION_MULT, WALK_DETECTION_MULT))
+        detection_radius_shape.set_scale(detection_radius_scale * WALK_DETECTION_MULT)
 
     if input_vector != Vector2.ZERO:
         animationTree.set("parameters/Idle/blend_position", input_vector)
@@ -90,7 +102,10 @@ func move_state(delta):
     else:
         animationState.travel("Idle")
         velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-        detection_radius_shape.set_scale(Vector2(1,1))
+        if lantern_light.is_visible():
+            detection_radius_shape.set_scale(detection_radius_scale * LIGHT_DETECTION_MULT)
+        else:
+            detection_radius_shape.set_scale(detection_radius_scale * DRAG_DETECTION_MULT)
 
     velocity = move_and_slide(velocity)
 
@@ -99,11 +114,35 @@ func move_state(delta):
         state = ATTACK
 
     if lantern_light.is_visible():
-        detection_radius_shape.set_scale(Vector2(LIGHT_DETECTION_MULT, LIGHT_DETECTION_MULT))
+        if move_state != DRAG && input_vector != Vector2.ZERO:
+            detection_radius_shape.set_scale(detection_radius_shape.get_scale() * LIGHT_DETECTION_MULT)
+        else:
+            detection_radius_shape.set_scale(detection_radius_scale * LIGHT_DETECTION_MULT)
+
 
     var new_pos = get_global_position()
     if last_pos != new_pos:
         emit_signal("moved", new_pos)
+
+    var new_noise_level = noise_level
+    if lantern_light.is_visible():
+        if move_state == SPRINT:
+            new_noise_level = NOISE_LEVEL.EXTREME
+        else:
+            new_noise_level = NOISE_LEVEL.MEDIUM
+    else:
+        if input_vector == Vector2.ZERO || move_state == DRAG:
+            new_noise_level = NOISE_LEVEL.NONE
+        elif move_state == WALK:
+            new_noise_level = NOISE_LEVEL.LOW
+        elif move_state == SPRINT:
+            new_noise_level = NOISE_LEVEL.HIGH
+
+    if noise_level != new_noise_level:
+        emit_signal("noise_level_changed", new_noise_level)
+        noise_level = new_noise_level
+
+
 
 func attack_state():
     animationState.travel("Attack")

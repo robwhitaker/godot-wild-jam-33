@@ -1,10 +1,20 @@
 extends KinematicBody2D
 
-export var movement_speed := 60.0
+export var chase_movement_speed := 60.0
+export var search_movement_speed := 40.0
+export var search_start_delay := 3.0
+export var search_duration := 10.0
+export var attack_cooldown := 2.0
 export var show_debug_info := false
 
 onready var path_refresh_timer := $PathRefreshTimer as Timer
+onready var search_start_delay_timer := $SearchStartDelay as Timer
+onready var search_timer := $SearchTimer as Timer
+onready var attack_cooldown_timer := $AttackCooldown as Timer
 onready var attack_radius := $AttackRadius as Area2D
+onready var aggro_radius := $AggroRadius as Area2D
+onready var wake_up_radius := $WakeUpRadius as Area2D
+
 onready var _debug_path_line := $Debug/PathLine as Line2D
 
 var path := [] as PoolVector2Array
@@ -12,14 +22,36 @@ var velocity := Vector2.ZERO
 var last_normal := Vector2.ZERO
 var current_dir := Vector2.ZERO
 
+var state := SLEEPING
+var attack_on_cooldown := false
+
+var player_is_detected := false
+var player_in_attack_range := false
+
 var _debug := false
 var _debug_move_direction := Vector2.ZERO
+
+### States ###
+
+enum {
+    SLEEPING,
+    CHASING,
+    ATTACKING
+}
 
 ### Lifecycle functions ###
 
 func _ready() -> void:
     # Enable / disable debug info
     _debug = OS.is_debug_build() && show_debug_info
+
+    # Don't run physics if we're not chasing
+    set_physics_process(state == CHASING)
+
+    # Set up settings from exported vars
+    search_start_delay_timer.set_wait_time(search_start_delay)
+    search_timer.set_wait_time(search_duration)
+    attack_cooldown_timer.set_wait_time(attack_cooldown)
 
     # Wait until the Scene singleton is ready so we can access the player and
     # the nav mesh
@@ -28,16 +60,31 @@ func _ready() -> void:
 
     # Rig up signal connections
     var _e # Placeholder used to quietly throw away connect results
+
     _e = path_refresh_timer.connect("timeout", self, "_update_path")
-    _e = attack_radius.connect("body_entered", self, "_on_player_entered")
-    _e = attack_radius.connect("body_exited", self, "_on_player_exited")
+    _e = search_start_delay_timer.connect("timeout", self, "_start_searching")
+    _e = search_timer.connect("timeout", self, "_give_up_on_search")
+    _e = attack_cooldown_timer.connect("timeout", self, "_attack_off_cooldown")
+
+    _e = attack_radius.connect("body_entered", self, "_on_player_entered_attack_range")
+    _e = attack_radius.connect("body_exited", self, "_on_player_exited_attack_range")
+    _e = aggro_radius.connect("area_entered", self, "_on_player_found")
+    _e = aggro_radius.connect("area_exited", self, "_on_player_lost")
+    _e = wake_up_radius.connect("area_entered", self, "_wake_up")
+
+    _e = Scene.player.connect("noise_level_changed", self, "_on_player_noise_level_changed")
 
     # Generate an initial path to the player
     _update_path()
 
 
 func _physics_process(delta : float) -> void:
-    if path.size() == 0: return
+    if path.size() == 0:
+        return
+
+    var movement_speed = chase_movement_speed
+    if !player_is_detected:
+        movement_speed = search_movement_speed
 
     # Try to move towards the next point in the path
     var target := path[0]
@@ -79,23 +126,102 @@ func _physics_process(delta : float) -> void:
         _debug_path_line.set_points(path)
         _debug_path_line.set_global_position(Vector2.ZERO)
 
+func _process(_delta):
+    if player_in_attack_range && !attack_on_cooldown && state == CHASING:
+        _attack()
+
 ### Helper functions ###
 
 func _update_path() -> void:
+    # Don't path to the player if we're not chasing
+    if state != CHASING:
+        return
+
+    # Generate a path to the player
     path = Scene.navigation.get_simple_path(
         get_global_position(),
         Scene.player.get_global_position()
     )
+
     if _debug:
         _debug_path_line.set_points(path)
 
+func _attack():
+    set_physics_process(false)
+    attack_on_cooldown = true
+    state = ATTACKING
+    # TODO: actual attack animation + spawn spores
+    set_modulate(Color.red)
+    yield(get_tree().create_timer(3), "timeout")
+    _attack_finished()
+
+func _attack_finished():
+    attack_cooldown_timer.start()
+    set_modulate(Color.white)
+    state = CHASING
+    set_physics_process(true)
+
+func _start_chase():
+    state = CHASING
+    set_physics_process(true)
+    _update_path()
+
 ### Signal handling ###
 
-func _on_player_entered(_body):
-    set_physics_process(false)
+func _on_player_entered_attack_range(_body):
+    player_in_attack_range = true
 
-func _on_player_exited(_body):
-    set_physics_process(true)
+func _on_player_exited_attack_range(_body):
+    player_in_attack_range = false
+    attack_on_cooldown = false
+    attack_cooldown_timer.stop()
+    state = CHASING
+
+func _on_player_found(_body):
+    player_is_detected = true
+    search_timer.stop()
+
+func _on_player_lost(_body):
+    search_start_delay_timer.start()
+
+func _start_searching():
+    player_is_detected = false
+    search_timer.start()
+
+func _give_up_on_search():
+    state = SLEEPING
+    set_physics_process(false)
+    # TODO: play sleep animation
+
+func _attack_off_cooldown():
+    attack_on_cooldown = false
+
+func _wake_up(_body):
+    if state != SLEEPING:
+        return
+
+    # TODO: play an animation and move the chase-start code to the end of the animation
+    set_modulate(Color.yellow)
+    yield(get_tree().create_timer(2), "timeout")
+    set_modulate(Color.white)
+    _start_chase()
+
+func _on_player_noise_level_changed(noise_level) -> void:
+    var path_update_freq = path_refresh_timer.get_wait_time()
+    match noise_level:
+        Scene.player.NOISE_LEVEL.NONE:
+            path_update_freq = 6
+        Scene.player.NOISE_LEVEL.LOW:
+            path_update_freq = 3
+        Scene.player.NOISE_LEVEL.MEDIUM:
+            path_update_freq = 0.5
+        Scene.player.NOISE_LEVEL.HIGH:
+            path_update_freq = 0.25
+        Scene.player.NOISE_LEVEL.EXTREME:
+            path_update_freq = 0.1
+    path_refresh_timer.set_wait_time(path_update_freq)
+    if path_refresh_timer.get_time_left() > path_update_freq:
+        path_refresh_timer.start()
 
 ### Debug ###
 
