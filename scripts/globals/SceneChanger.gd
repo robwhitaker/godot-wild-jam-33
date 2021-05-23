@@ -19,7 +19,3 @@ func change_scene(position : Vector2, direction : String, scene_path : String, d
     animationPlayer.play_backwards("fade")
     yield(animationPlayer, "animation_finished")
     emit_signal("scene_changed")
-
-    animationPlayer.play_backwards("fade")
-    yield(animationPlayer, "animation_finished")
-    emit_signal("scene_changed")
