@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scripts/characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Player.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/light-radius.png" type="Texture" id=3]
+[ext_resource path="res://scripts/effects/LightFlicker.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
@@ -401,10 +402,16 @@ visible = false
 position = Vector2( -7.62939e-06, -3.52284 )
 scale = Vector2( 1.37542, 1.37542 )
 texture = ExtResource( 3 )
+color = Color( 1, 0.803922, 0.615686, 1 )
+script = ExtResource( 4 )
+flicker_range = Vector2( 0.95, 1 )
+min_scale_multiplier = 0.97
+min_flicker_delay = 0.05
+chance_to_flicker = 0.3
 
 [node name="DefaultLight" type="Light2D" parent="."]
-position = Vector2( 0.083437, -3.74858 )
-scale = Vector2( 0.571131, 0.571131 )
+position = Vector2( 0.152164, -4.73798 )
+scale = Vector2( 0.989572, 0.989572 )
 texture = ExtResource( 3 )
 color = Color( 0.423529, 0, 0.611765, 1 )
 energy = 0.7
