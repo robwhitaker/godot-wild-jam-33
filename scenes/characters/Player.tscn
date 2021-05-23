@@ -420,5 +420,10 @@ collision_layer = 0
 position = Vector2( 0, -3.53554 )
 shape = SubResource( 36 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -5 )
+current = true
+zoom = Vector2( 0.7, 0.7 )
+
 [connection signal="area_entered" from="InteractionRadius" to="." method="_on_InteractionRadius_area_entered"]
 [connection signal="area_exited" from="InteractionRadius" to="." method="_on_InteractionRadius_area_exited"]

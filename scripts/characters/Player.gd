@@ -52,6 +52,13 @@ func _ready():
             "down": input_vector = Vector2.DOWN
         animationTree.set("parameters/Idle/blend_position", input_vector)
 
+    var scene_dimensions = get_tree().current_scene.get_node("Background").get_rect().size
+    var camera = get_node("Camera2D")
+    camera.limit_left = 0
+    camera.limit_top = 0
+    camera.limit_right = scene_dimensions.x
+    camera.limit_bottom = scene_dimensions.y
+
 func _process(delta):
     match state:
         MOVE:
