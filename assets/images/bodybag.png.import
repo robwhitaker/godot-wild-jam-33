@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pale_left.png-7ba3adfd2a53bf82822befe1b8564abc.stex"
+path="res://.import/bodybag.png-61f9de29dbd39920d2916e699f9899ed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/pale_left.png"
-dest_files=[ "res://.import/pale_left.png-7ba3adfd2a53bf82822befe1b8564abc.stex" ]
+source_file="res://assets/images/bodybag.png"
+dest_files=[ "res://.import/bodybag.png-61f9de29dbd39920d2916e699f9899ed.stex" ]
 
 [params]
 
