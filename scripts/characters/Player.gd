@@ -75,7 +75,10 @@ func apply_damage(damage : float) -> void:
 func _die() -> void:
     self.set_physics_process(false)
     _display_you_died_text()
-    # go to title screen after 5 seconds
+    yield(get_tree().create_timer(3.0), "timeout")
+    var title_screen_path = "res://scenes/rooms/TitleScreen.tscn"
+    SceneChanger.change_scene(Vector2.ZERO, "", title_screen_path)
+    Player.health = 100
 
 func move_state(delta):
     var last_pos = get_global_position()
