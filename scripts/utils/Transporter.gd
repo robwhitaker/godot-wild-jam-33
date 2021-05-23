@@ -12,4 +12,4 @@ func _ready():
 func _on_Transporter_body_entered(body : Node2D):
     if body.name == "Player":
         var next_scene_position = Vector2(next_scene_position_x, next_scene_position_y)
-        SceneChanger.change_scene(body, next_scene_position, next_scene_direction, next_scene_path)
+        SceneChanger.change_scene(next_scene_position, next_scene_direction, next_scene_path)
