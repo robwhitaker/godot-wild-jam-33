@@ -4,13 +4,10 @@
 [ext_resource path="res://assets/images/grass64.png" type="Texture" id=2]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/resources/foliageTileSet.tres" type="TileSet" id=4]
+[ext_resource path="res://scenes/characters/SketchyBodyCollector.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/utils/Transporter.gd" type="Script" id=6]
 [ext_resource path="res://scripts/utils/Nav2DInit.gd" type="Script" id=7]
-
-[sub_resource type="NavigationPolygon" id=1]
-vertices = PoolVector2Array( -79.7213, 285.751, 235.71, 11.0349, 275.825, 10.4908, 300.019, 10.4908, 508.648, 284.537, 511.48, -27.8855, 295.18, 3.4829, 212.199, 10.8582, -78.8304, -26.0632, 220.154, 3.25676, 277.661, 2.98233, 228.285, 2.9032 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 4, 3, 6 ), PoolIntArray( 7, 1, 0 ), PoolIntArray( 7, 0, 8, 9 ), PoolIntArray( 10, 2, 1, 11 ), PoolIntArray( 8, 5, 6, 10 ), PoolIntArray( 8, 10, 11 ), PoolIntArray( 8, 11, 9 ) ]
-outlines = [ PoolVector2Array( 511.48, -27.8855, 508.648, 284.537, -79.7213, 285.751, -78.8304, -26.0632 ), PoolVector2Array( 277.661, 2.98233, 275.825, 10.4908, 300.019, 10.4908, 295.18, 3.4829 ), PoolVector2Array( 220.154, 3.25676, 212.199, 10.8582, 235.71, 11.0349, 228.285, 2.9032 ) ]
+[ext_resource path="res://assets/resources/groundOnly.tres" type="TileSet" id=8]
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 10.4635
@@ -32,6 +29,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 8 )
+format = 1
+tile_data = PoolIntArray( 7, 1, 0, 65542, 1, 0, 65543, 0, 0, 131074, 2, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 2, 0, 131079, 1, 0, 196615, 0, 0 )
+
 [node name="Navigation2D" type="Navigation2D" parent="."]
 script = ExtResource( 7 )
 
@@ -41,6 +43,7 @@ script = ExtResource( 7 )
 position = Vector2( 168.482, 132.142 )
 
 [node name="sitting_guy" type="Sprite" parent="Navigation2D/YSort"]
+visible = false
 position = Vector2( 170.106, 63.2065 )
 z_as_relative = false
 texture = ExtResource( 1 )
@@ -55,10 +58,11 @@ collision_mask = 10
 format = 1
 tile_data = PoolIntArray( -131075, 11, 0, -131074, 11, 0, -131073, 11, 0, -196608, 11, 0, -196607, 11, 0, -196606, 11, 0, -196605, 11, 0, -196604, 11, 0, -196603, 11, 0, -196602, 11, 0, -196601, 11, 0, -196600, 11, 0, -196599, 11, 0, -196598, 11, 0, -196597, 11, 0, -196596, 11, 0, -196595, 11, 0, -196594, 11, 0, -196593, 11, 0, -196592, 11, 0, -65541, 11, 0, -5, 11, 0, -65536, 2, 0, -65533, 8, 0, -65530, 8, 0, -65528, 8, 0, -65519, 11, 0, 65531, 11, 0, 0, 8, 0, 1, 10, 0, 5, 4, 0, 8, 2, 0, 17, 11, 0, 131067, 11, 0, 65538, 10, 0, 65539, 0, 0, 65540, 5, 0, 65543, 10, 0, 65545, 5, 0, 65553, 11, 0, 196603, 11, 0, 131072, 5, 0, 131074, 4, 0, 131089, 11, 0, 262139, 11, 0, 196608, 10, 0, 196625, 11, 0, 327675, 11, 0, 262151, 10, 0, 262161, 11, 0, 393211, 11, 0, 327681, 5, 0, 327697, 11, 0, 458747, 11, 0, 393233, 11, 0, 524283, 11, 0, 458769, 11, 0, 589819, 11, 0, 524305, 11, 0, 655355, 11, 0, 655357, 11, 0, 655358, 11, 0, 655359, 11, 0, 589824, 11, 0, 589825, 11, 0, 589826, 11, 0, 589827, 11, 0, 589828, 11, 0, 589829, 11, 0, 589830, 11, 0, 589831, 11, 0, 589832, 11, 0, 589833, 11, 0, 589834, 11, 0, 589835, 11, 0, 589836, 11, 0, 589837, 11, 0, 589838, 11, 0, 589839, 11, 0, 589840, 11, 0, 589841, 11, 0, 720892, 11, 0, 720893, 11, 0, 720894, 11, 0, 720895, 11, 0, 655360, 11, 0, 655361, 11, 0, 655362, 11, 0, 655363, 11, 0, 655364, 11, 0, 655365, 11, 0, 655366, 11, 0, 655367, 11, 0, 655368, 11, 0, 655369, 11, 0, 655370, 11, 0, 655371, 11, 0, 655372, 11, 0, 655373, 11, 0, 655374, 11, 0, 655375, 11, 0, 655376, 11, 0, 655377, 11, 0 )
 
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-navpoly = SubResource( 1 )
+[node name="SketchyBodyCollector" parent="Navigation2D/YSort" instance=ExtResource( 5 )]
+position = Vector2( 188.988, 115.283 )
 
 [node name="taskgiver" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2( 170.106, 63.2065 )
 collision_layer = 5
 collision_mask = 2

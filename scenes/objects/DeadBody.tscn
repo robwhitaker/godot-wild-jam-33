@@ -7,7 +7,7 @@
 radius = 8.293
 height = 39.7867
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 37.849
 
 [node name="DeadBody" type="StaticBody2D"]
@@ -28,4 +28,4 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.166855, 0.166855 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )

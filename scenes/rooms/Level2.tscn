@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/resources/foliageTileSet.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/images/grass64.png" type="Texture" id=2]
-[ext_resource path="res://assets/images/deadman.png" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/DeadBody.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/resources/groundOnly.tres" type="TileSet" id=4]
 [ext_resource path="res://scripts/utils/Transporter.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/Player.tscn" type="PackedScene" id=6]
@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10.7689, 357.888 )
 
-[node name="Level1" type="Node2D"]
+[node name="Level2" type="Node2D"]
 
 [node name="Background" type="TextureRect" parent="."]
 margin_left = -28.5
@@ -36,10 +36,6 @@ tile_data = PoolIntArray( 65540, 2, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 13
 
 [node name="YSort" type="YSort" parent="Background"]
 
-[node name="deadman" type="Sprite" parent="Background/YSort"]
-position = Vector2( 336.096, 156.863 )
-texture = ExtResource( 3 )
-
 [node name="TileMap2" type="TileMap" parent="Background/YSort"]
 tile_set = ExtResource( 1 )
 cell_half_offset = 1
@@ -58,6 +54,9 @@ position = Vector2( 449.212, 420.607 )
 
 [node name="flowerlight3" parent="Background/YSort" instance=ExtResource( 7 )]
 position = Vector2( 312.076, 154.927 )
+
+[node name="DeadBody" parent="Background/YSort" instance=ExtResource( 3 )]
+position = Vector2( 331.051, 168.608 )
 
 [node name="TransporterUp" type="Area2D" parent="."]
 position = Vector2( 118.529, 436.036 )
