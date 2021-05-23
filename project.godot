@@ -35,6 +35,7 @@ config/icon="res://icon.png"
 Scene="*res://scripts/globals/Scene.gd"
 SceneChanger="*res://scenes/utils/SceneChanger.tscn"
 Player="*res://scripts/globals/Player.gd"
+BackgroundAudio="*res://scenes/utils/BackgroundAudio.tscn"
 
 [display]
 

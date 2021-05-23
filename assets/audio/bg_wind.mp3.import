@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bg_wind.mp3-da76c230b448dcb0894b305efcac7c01.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/bg_wind.mp3"
+dest_files=[ "res://.import/bg_wind.mp3-da76c230b448dcb0894b305efcac7c01.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=3.0
