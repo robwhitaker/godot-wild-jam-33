@@ -8,7 +8,7 @@ onready var black =  $Control/Black
 var next_scene_position = Vector2.ZERO
 var next_scene_direction = ""
 
-func change_scene(player, position, direction, scene_path, delay = 0):
+func change_scene(player : Node2D, position : Vector2, direction : String, scene_path : String, delay : float = 0) -> void:
     next_scene_position = position
     next_scene_direction = direction
 
