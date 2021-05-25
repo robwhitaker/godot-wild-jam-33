@@ -15,7 +15,8 @@ func change_scene(position : Vector2, direction : String, scene_path : String, d
     yield(get_tree().create_timer(delay), "timeout")
     animationPlayer.play("fade")
     yield(animationPlayer, "animation_finished")
-    assert(get_tree().change_scene(scene_path) == OK)
+    #warning-ignore:return_value_discarded
+    get_tree().change_scene(scene_path)
     animationPlayer.play_backwards("fade")
     yield(animationPlayer, "animation_finished")
     emit_signal("scene_changed")
