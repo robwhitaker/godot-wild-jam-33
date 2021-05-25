@@ -7,5 +7,5 @@ func unselect():
     pass
 
 func interact():
-    Scene.player.has_body = true
+    Scene.player.pickup_body()
     owner.queue_free()
