@@ -22,8 +22,7 @@ enum {
 }
 
 enum {
-    MOVE,
-    ATTACK
+    MOVE
 }
 
 enum NOISE_LEVEL {
@@ -62,8 +61,6 @@ func _physics_process(delta):
     match state:
         MOVE:
             move_state(delta)
-        ATTACK:
-            attack_state()
 
 func apply_damage(damage : float) -> void:
     var health = Player.health
@@ -115,7 +112,6 @@ func move_state(delta):
     if input_vector != Vector2.ZERO:
         animationTree.set("parameters/Idle/blend_position", input_vector)
         animationTree.set("parameters/Run/blend_position", input_vector)
-        animationTree.set("parameters/Attack/blend_position", input_vector)
         # TODO: different animation for different move states
         animationState.travel("Run")
         var max_speed := 0
@@ -136,10 +132,6 @@ func move_state(delta):
             detection_radius_shape.set_scale(detection_radius_scale * DRAG_DETECTION_MULT)
 
     velocity = move_and_slide(velocity)
-
-    if Input.is_action_just_pressed("attack"):
-        velocity = Vector2.ZERO
-        state = ATTACK
 
     if lantern_light.is_visible():
         if move_state != DRAG && input_vector != Vector2.ZERO:
@@ -169,14 +161,6 @@ func move_state(delta):
     if noise_level != new_noise_level:
         emit_signal("noise_level_changed", new_noise_level)
         noise_level = new_noise_level
-
-
-
-func attack_state():
-    animationState.travel("Attack")
-
-func attack_animation_finish():
-    state = MOVE
 
 func _on_InteractionRadius_area_entered(body) -> void:
     if body.has_method("select"):
